@@ -17,6 +17,13 @@ pub trait CodePointInterface:
 
     fn is(&self, unit: char) -> bool;
 
+    /// Un C0 control est un point de code dans la gamme U+0000 NULL à
+    /// U+001F INFORMATION SEPARATOR ONE, inclus.
+    fn is_c0_control(&self) -> bool;
+
+    /// A C0 control ou space est un C0 control ou U+0020 SPACE.
+    fn is_c0_control_or_space(&self) -> bool;
+
     /// digit
     ///
     /// Un point de code compris entre U+0030 DIGIT ZERO (0) et U+0039 DIGIT
@@ -120,6 +127,14 @@ macro_rules! impl_cdi {
 
         fn is(&self, unit: char) -> bool {
             *self as char == unit
+        }
+
+        fn is_c0_control(&self) -> bool {
+            matches!(self.as_char(), '\0'..='\u{001F}')
+        }
+
+        fn is_c0_control_or_space(&self) -> bool {
+            self.is_c0_control() || self.is(' ')
         }
 
         fn is_digit(&self) -> bool {
