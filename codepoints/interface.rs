@@ -76,6 +76,16 @@ pub trait CodePointInterface:
     /// Un point de code U+0000 NULL.
     fn is_null(&self) -> bool;
 
+    /// Une valeur scalaire est un point de code qui n'est pas un
+    /// substitut.
+    fn is_scalar_value(&self) -> bool {
+        !self.is_surrogate()
+    }
+
+    /// Un substitut est un point de code qui se trouve dans la plage
+    /// U+D800 à U+DFFF, inclus.
+    fn is_surrogate(&self) -> bool;
+
     /// Espace blanc.
     ///
     /// Un saut de ligne, une TABULATION DE CARACTÈRES U+0009 ou un ESPACE
@@ -146,6 +156,10 @@ macro_rules! impl_cdi {
 
         fn is_null(&self) -> bool {
             self.is('\0')
+        }
+
+        fn is_surrogate(&self) -> bool {
+            matches!(self.as_char(), '\u{D_8000}'..='\u{D_FFFF}')
         }
 
         fn is_whitespace(&self) -> bool {
