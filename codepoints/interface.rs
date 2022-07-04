@@ -71,6 +71,15 @@ pub trait CodePointInterface:
     /// <control>
     fn is_non_ascii(&self) -> bool;
 
+    /// Un non-caractère est un point de code qui se trouve dans
+    /// l'intervalle des caractères. U+FDD0 à U+FDEF, inclus,
+    /// ou U+FFFE, U+FFFF, U+1FFFE, U+1FFFF, U+2FFFE, U+2FFFF, U+3FFFE,
+    /// U+3FFFF, U+4FFFE, U+4FFFF, U+5FFFE, U+5FFFF, U+6FFFE, U+6FFFF,
+    /// U+7FFFE, U+7FFFF, U+8FFFE, U+8FFFF, U+9FFFE, U+9FFFF, U+AFFFE,
+    /// U+AFFFF, U+BFFFE, U+BFFFF, U+CFFFE, U+CFFFF, U+DFFFE, U+DFFFF,
+    /// U+EFFFE, U+EFFFF, U+FFFFE, U+FFFFF, U+10FFFE, ou U+10FFFF.
+    fn is_noncharacter(&self) -> bool;
+
     /// NULL
     ///
     /// Un point de code U+0000 NULL.
@@ -145,13 +154,34 @@ macro_rules! impl_cdi {
             self.is_ident_start() || self.is_ascii_digit() || self.is('-')
         }
 
-
         fn is_newline(&self) -> bool {
             self.is('\n') || self.is('\x0C') || self.is('\r')
         }
 
         fn is_non_ascii(&self) -> bool {
             *self as u32 >= 0x80
+        }
+
+        fn is_noncharacter(&self) -> bool {
+            matches!(self.as_char(),
+                | '\u{FDD0}'..='\u{FDEF}'
+                | '\u{FFFE}'..='\u{FFFF}'
+                | '\u{1_FFFE}'..='\u{1_FFFF}'
+                | '\u{2_FFFE}'..='\u{2_FFFF}'
+                | '\u{3_FFFE}'..='\u{3_FFFF}'
+                | '\u{4_FFFE}'..='\u{4_FFFF}'
+                | '\u{5_FFFE}'..='\u{5_FFFF}'
+                | '\u{6_FFFE}'..='\u{6_FFFF}'
+                | '\u{7_FFFE}'..='\u{7_FFFF}'
+                | '\u{8_FFFE}'..='\u{8_FFFF}'
+                | '\u{9_FFFE}'..='\u{9_FFFF}'
+                | '\u{A_FFFE}'..='\u{A_FFFF}'
+                | '\u{B_FFFE}'..='\u{B_FFFF}'
+                | '\u{C_FFFE}'..='\u{C_FFFF}'
+                | '\u{D_FFFE}'..='\u{D_FFFF}'
+                | '\u{E_FFFE}'..='\u{E_FFFF}'
+                | '\u{F_FFFE}'..='\u{F_FFFF}'
+                | '\u{10_FFFE}'..='\u{10_FFFF}')
         }
 
         fn is_null(&self) -> bool {
