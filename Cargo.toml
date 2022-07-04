@@ -1,0 +1,16 @@
+[package]
+name = "lang"
+version = "0.1.0"
+edition = "2021"
+license-file = "./LICENSE"
+
+[workspace]
+members = ["codepoints", "location", "stream"]
+
+[lib]
+path = "./lib.rs"
+
+[dependencies]
+codepoints = { path = "./codepoints", package = "lang-codepoints" }
+location = { path = "./location", package = "lang-location" }
+stream = { path = "./stream", package = "lang-stream" }
