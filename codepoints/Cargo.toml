@@ -1,0 +1,8 @@
+[package]
+name = "lang-codepoints"
+version = "0.1.2"
+license-file = "../LICENSE"
+edition = "2021"
+
+[lib]
+path = "./lib.rs"
