@@ -1,0 +1,11 @@
+[package]
+name = "lang-stream"
+version = "0.1.3"
+license-file = "../LICENSE"
+edition = "2021"
+
+[lib]
+path = "./lib.rs"
+
+[dependencies]
+codepoints = { path = "../codepoints", package = "lang-codepoints" }
