@@ -4,6 +4,10 @@
 
 use codepoints::{CodePoint, CodePointInterface};
 
+// --------- //
+// Interface //
+// --------- //
+
 pub trait StreamIterator {
     type Error: StreamIteratorError;
     type Item: StreamIteratorItem;

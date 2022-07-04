@@ -59,6 +59,9 @@ impl fmt::Display for ByteStream {
 // Implémentation // -> From<T>
 // -------------- //
 
+/// Crée un nouveau [ByteStream] à partir d'octets (provenant
+/// du réseau/fichier).
+
 impl<const N: usize> From<&[u8; N]> for ByteStream {
     fn from(buf_bytes: &[u8; N]) -> Self {
         let decoded_data = str::from_utf8(buf_bytes)
@@ -69,8 +72,6 @@ impl<const N: usize> From<&[u8; N]> for ByteStream {
 }
 
 impl From<&[u8]> for ByteStream {
-    /// Crée un nouveau [ByteStream] à partir d'octets (provenant
-    /// du réseau/fichier).
     fn from(buf_bytes: &[u8]) -> Self {
         let decoded_data = str::from_utf8(buf_bytes)
             .map(|data| data.to_owned())
@@ -107,5 +108,43 @@ impl TryFrom<Result<fs::File, io::Error>> for ByteStream {
             let n = file.read_to_end(&mut buf).expect("a string");
             Self::from(&buf[..n])
         })
+    }
+}
+
+// ---- //
+// Test //
+// ---- //
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_from_slice() {
+        let bytes: &[u8; 13] = b"Hello, world!";
+        let stream = ByteStream::from(bytes);
+        let mut chars = stream.chars();
+        assert_eq!(chars.next(), Some('H'));
+        assert_eq!(chars.last(), Some('!'));
+    }
+
+    #[test]
+    fn test_from_str() {
+        let source: &'static str = include_str!("testdata/file.ms");
+        let stream = ByteStream::from(source);
+        let mut chars = stream.chars();
+        assert_eq!(chars.next(), Some('/'));
+        assert_eq!(chars.next(), Some('*'));
+        assert_eq!(chars.last(), Some('\n'));
+    }
+
+    #[test]
+    fn test_from_file() {
+        let file = fs::File::open("./testdata/file.ms");
+        let stream = ByteStream::try_from(file).expect("le fichier");
+        let mut chars = stream.chars();
+        assert_eq!(chars.next(), Some('/'));
+        assert_eq!(chars.next(), Some('*'));
+        assert_eq!(chars.last(), Some('\n'));
     }
 }

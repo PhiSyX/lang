@@ -16,17 +16,6 @@ pub struct TokenStream<Token, Error> {
     recycle: Vec<Result<Token, Error>>,
 }
 
-// ----------- //
-// Énumération //
-// ----------- //
-
-#[derive(Debug)]
-#[derive(Clone)]
-#[derive(PartialEq, Eq)]
-pub enum TokenStreamError {
-    EOF,
-}
-
 // -------------- //
 // Implémentation //
 // -------------- //
@@ -102,7 +91,7 @@ where
                 let current_token = self
                     .token_currently_being_operated_on
                     .clone()
-                    .expect("Le jeton actuel 2");
+                    .expect("Le jeton actuel 1");
 
                 self.recycle.push(current_token);
 
@@ -114,7 +103,7 @@ where
 
         self.token_currently_being_operated_on
             .clone()
-            .expect("Le jeton actuel 3")
+            .expect("Le jeton actuel 2")
     }
 
     fn peek_next(&mut self) -> Result<Self::Item, Self::Error> {
@@ -122,7 +111,7 @@ where
             return self
                 .token_currently_being_operated_on
                 .clone()
-                .expect("Le jeton actuel 4");
+                .expect("Le jeton actuel 3");
         }
 
         if self.list_of_tokens.is_empty() {
@@ -142,7 +131,7 @@ where
         let last_consumed_element = self
             .token_currently_being_operated_on
             .clone()
-            .expect("Le jeton actuel");
+            .expect("Le jeton actuel 4");
         let mut temp = vec![last_consumed_element];
         self.list_of_tokens.splice(..0, temp.drain(..));
     }

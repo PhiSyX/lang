@@ -89,7 +89,7 @@ where
         predicate: Predicate,
         with_limit: Option<usize>,
     ) -> Vec<Self::Item> {
-        let mut limit = with_limit.map(|n| n + 1).unwrap_or(0);
+        let mut limit = with_limit.unwrap_or(0);
         let mut result = vec![];
 
         while self.peek_next().is_ok()
@@ -99,7 +99,7 @@ where
             let input = self.consume_next().unwrap();
             result.push(input);
             if with_limit.is_some() {
-                limit -= 1;
+                limit = limit.saturating_sub(1);
             }
         }
 
@@ -280,5 +280,33 @@ mod tests {
 
         assert_eq!(input_stream.consume_next(), Ok(CodePoint::EOF));
         assert_eq!(input_stream.consume_next(), Ok(CodePoint::EOF));
+    }
+
+    #[test]
+    fn test_advance_as_long_as_possible() {
+        let source = format!("     {}", SOURCE);
+        let mut input_stream = InputStream::new(source.chars());
+        input_stream
+            .advance_as_long_as_possible(|codepoint| codepoint.is_whitespace());
+        assert_eq!(input_stream.consume_next(), Ok(CodePoint::Unit('H')));
+
+        let mut input_stream = InputStream::new(source.chars());
+        input_stream.advance_as_long_as_possible_with_limit(
+            |codepoint| codepoint.is_whitespace(),
+            3.into(),
+        );
+        assert_eq!(input_stream.consume_next(), Ok(CodePoint::Whitespace(' ')));
+        assert_eq!(input_stream.consume_next(), Ok(CodePoint::Whitespace(' ')));
+        assert_eq!(input_stream.consume_next(), Ok(CodePoint::Unit('H')));
+
+        let mut string = String::new();
+        let mut input_stream = InputStream::new(source.chars());
+        input_stream.advance_as_long_as_possible_and_apply(
+            |codepoint| codepoint.is_whitespace(),
+            |codepoint| {
+                string.push(codepoint.unit());
+            },
+        );
+        assert_eq!(string, "     ");
     }
 }
