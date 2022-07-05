@@ -5,12 +5,13 @@ edition = "2021"
 license-file = "./LICENSE"
 
 [workspace]
-members = ["codepoints", "location", "stream"]
+members = ["codepoints", "location", "stream", "lexical-analysis"]
 
 [lib]
 path = "./lib.rs"
 
 [dependencies]
 codepoints = { path = "./codepoints", package = "lang-codepoints" }
+lexer = { path = "./lexical-analysis", package = "lang-lexer", default-features = true }
 location = { path = "./location", package = "lang-location" }
 stream = { path = "./stream", package = "lang-stream" }

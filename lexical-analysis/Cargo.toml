@@ -1,0 +1,16 @@
+[package]
+name = "lang-lexer"
+version = "0.1.0"
+license-file = "../LICENSE"
+edition = "2021"
+
+[features]
+default = ["comment"]
+comment = []
+
+[lib]
+path = "./lib.rs"
+
+[dependencies]
+location = { path = "../location", package = "lang-location" }
+stream = { path = "../stream", package = "lang-stream" }

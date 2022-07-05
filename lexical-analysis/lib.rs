@@ -2,7 +2,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-pub use codepoints;
-pub use lexer;
-pub use location;
-pub use stream;
+mod algorithms;
+#[cfg(feature = "comment")]
+pub mod comment;
+mod error;
+mod io;
+
+pub mod prelude {
+    pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
+}
+
+pub use self::io::Input;

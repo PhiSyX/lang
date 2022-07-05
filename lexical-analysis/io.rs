@@ -2,7 +2,9 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-pub use codepoints;
-pub use lexer;
-pub use location;
-pub use stream;
+pub trait Input {
+    type Output;
+
+    /// Fonction d'analyse;
+    fn parse(self) -> Self::Output;
+}
