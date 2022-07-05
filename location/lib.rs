@@ -49,10 +49,12 @@ impl LocationInterface for Location {
     }
 
     fn increment_line_by(&mut self, n: usize) {
+        self.increment_total_by(n);
         self.line = self.line.saturating_add(n);
     }
 
     fn increment_column_by(&mut self, n: usize) {
+        self.increment_total_by(n);
         self.column = self.column.saturating_add(n);
     }
 
