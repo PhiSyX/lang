@@ -1,0 +1,11 @@
+Il s'agit d'un dépôt permettant de faciliter la création d'un analyseur
+syntaxique avec du code très générique.
+
+Actuellement utilisé
+    - Pour MikuScript : un langage de programmation.
+        - MikuScript/mscss : syntaxe MSCSS (inspirée de (S)CSS).
+        - MikuScript/msx   : syntaxe MSX   (inspirée de HTML (JSX)).
+
+    - Par resworb : un navigateur web.
+        - resworb/css/parser  : pour la syntaxe CSS.
+        - resworb/html/parser : pour la syntaxe HTML.
