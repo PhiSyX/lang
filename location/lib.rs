@@ -124,7 +124,13 @@ impl str::FromStr for Location {
         Ok(Self {
             line,
             column,
-            total: line + column,
+            total: if line == 1 {
+                column
+            } else if column == 1 {
+                line
+            } else {
+                line + column
+            },
         })
     }
 }
