@@ -12,10 +12,18 @@ use crate::delim;
 pub enum Operator {
     /// Opérateurs d'assignations
     Assignment(Assignment),
+
+    /// Opérateurs de comparaisons
+    Comparison(Comparison),
 }
 
 delim! { - Assignment -
     EQUAL = '=';
+
+delim! { - Comparison -
+    GREATER_THAN = '>';
+    LESS_THAN = '<';
+}
 }
 
 impl fmt::Display for Operator {
@@ -25,6 +33,7 @@ impl fmt::Display for Operator {
             "{}",
             match self {
                 | Operator::Assignment(assignment) => assignment.to_string(),
+                | Operator::Comparison(cmp) => cmp.to_string(),
             }
         )
     }

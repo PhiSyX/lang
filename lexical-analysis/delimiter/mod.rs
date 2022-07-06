@@ -17,6 +17,7 @@ use self::{
     error::DelimiterParseError,
     operator::{
         Assignment,
+        Comparison,
         Operator,
     },
     symbol::Symbol,
@@ -115,6 +116,13 @@ where
             //   - Opérateurs d'assignations.
             | CodePoint::EQUALS_SIGN => {
                 Self::Operator(Operator::Assignment(Assignment::EQUAL))
+            }
+            //  - Opérateurs de comparaison.
+            | CodePoint::GREATER_THAN_SIGN => {
+                Self::Operator(Operator::Comparison(Comparison::GREATER_THAN))
+            }
+            | CodePoint::LESS_THAN_SIGN => {
+                Self::Operator(Operator::Comparison(Comparison::LESS_THAN))
             }
             | _ => {
                 return Err(DelimiterParseError::Invalid {
