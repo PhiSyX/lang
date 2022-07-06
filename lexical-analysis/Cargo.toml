@@ -1,14 +1,15 @@
 [package]
 name = "lang-lexer"
-version = "0.1.9"
+version = "0.1.10"
 license-file = "../LICENSE"
 edition = "2021"
 
 [features]
-default = ["comment", "delimiter", "keyword"]
+default = ["comment", "delimiter", "keyword", "identifier"]
 comment = []
 delimiter = []
 keyword = []
+identifier = []
 
 [lib]
 path = "./lib.rs"
