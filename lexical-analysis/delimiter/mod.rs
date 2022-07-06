@@ -16,6 +16,7 @@ use self::{
     boundary_pairs::BoundaryPairs,
     error::DelimiterParseError,
     operator::{
+        Arithmetic,
         Assignment,
         Comparison,
         Operator,
@@ -123,6 +124,22 @@ where
             }
             | CodePoint::LESS_THAN_SIGN => {
                 Self::Operator(Operator::Comparison(Comparison::LESS_THAN))
+            }
+            //  - Opérateurs arithmétiques.
+            | CodePoint::PLUS_SIGN => {
+                Self::Operator(Operator::Arithmetic(Arithmetic::ADDITION))
+            }
+            | CodePoint::HYPHEN_MINUS => {
+                Self::Operator(Operator::Arithmetic(Arithmetic::SUBTRACTION))
+            }
+            | CodePoint::SOLIDUS => {
+                Self::Operator(Operator::Arithmetic(Arithmetic::DIVISION))
+            }
+            | CodePoint::ASTERISK => {
+                Self::Operator(Operator::Arithmetic(Arithmetic::MULTIPLICATION))
+            }
+            | CodePoint::PERCENTAGE_SIGN => {
+                Self::Operator(Operator::Arithmetic(Arithmetic::REMAINDER))
             }
             | _ => {
                 return Err(DelimiterParseError::Invalid {

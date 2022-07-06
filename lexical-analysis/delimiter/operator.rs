@@ -15,15 +15,26 @@ pub enum Operator {
 
     /// Opérateurs de comparaisons
     Comparison(Comparison),
+
+    /// Opérateurs arithmétiques
+    Arithmetic(Arithmetic),
 }
 
 delim! { - Assignment -
     EQUAL = '=';
+}
 
 delim! { - Comparison -
     GREATER_THAN = '>';
     LESS_THAN = '<';
 }
+
+delim! { - Arithmetic -
+    ADDITION = '+';
+    SUBTRACTION = '-';
+    DIVISION = '/';
+    MULTIPLICATION = '*';
+    REMAINDER = '%';
 }
 
 impl fmt::Display for Operator {
@@ -34,6 +45,7 @@ impl fmt::Display for Operator {
             match self {
                 | Operator::Assignment(assignment) => assignment.to_string(),
                 | Operator::Comparison(cmp) => cmp.to_string(),
+                | Operator::Arithmetic(arithmetic) => arithmetic.to_string(),
             }
         )
     }
