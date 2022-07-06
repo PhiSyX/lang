@@ -9,6 +9,8 @@ pub mod comment;
 pub mod delimiter;
 mod error;
 mod io;
+#[cfg(feature = "keyword")]
+pub mod keyword;
 
 pub mod prelude {
     pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
