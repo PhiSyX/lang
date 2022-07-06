@@ -18,6 +18,9 @@ pub enum Operator {
 
     /// Opérateurs arithmétiques
     Arithmetic(Arithmetic),
+
+    /// Opérateurs logiques
+    Logical(Logical),
 }
 
 delim! { - Assignment -
@@ -37,15 +40,20 @@ delim! { - Arithmetic -
     REMAINDER = '%';
 }
 
+delim! { - Logical -
+    NOT = '!';
+}
+
 impl fmt::Display for Operator {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
             "{}",
             match self {
-                | Operator::Assignment(assignment) => assignment.to_string(),
-                | Operator::Comparison(cmp) => cmp.to_string(),
-                | Operator::Arithmetic(arithmetic) => arithmetic.to_string(),
+                | Self::Assignment(assignment) => assignment.to_string(),
+                | Self::Comparison(cmp) => cmp.to_string(),
+                | Self::Arithmetic(arithmetic) => arithmetic.to_string(),
+                | Self::Logical(logical) => logical.to_string(),
             }
         )
     }

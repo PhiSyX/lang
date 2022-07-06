@@ -19,6 +19,7 @@ use self::{
         Arithmetic,
         Assignment,
         Comparison,
+        Logical,
         Operator,
     },
     symbol::Symbol,
@@ -140,6 +141,10 @@ where
             }
             | CodePoint::PERCENTAGE_SIGN => {
                 Self::Operator(Operator::Arithmetic(Arithmetic::REMAINDER))
+            }
+            //  - Opérateurs logiques.
+            | CodePoint::EXCLAMATION_MARK => {
+                Self::Operator(Operator::Logical(Logical::NOT))
             }
             | _ => {
                 return Err(DelimiterParseError::Invalid {
