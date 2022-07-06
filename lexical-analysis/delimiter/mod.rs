@@ -5,6 +5,7 @@
 mod boundary_pairs;
 pub(crate) mod error;
 mod r#macro;
+mod operator;
 mod symbol;
 
 use core::fmt;
@@ -14,6 +15,10 @@ use codepoints::{CodePoint, CodePointInterface};
 use self::{
     boundary_pairs::BoundaryPairs,
     error::DelimiterParseError,
+    operator::{
+        Assignment,
+        Operator,
+    },
     symbol::Symbol,
 };
 
@@ -35,6 +40,11 @@ pub enum Delimiter {
     ///
     /// Par exemple: '{', '}', '(', ')', etc...
     BoundaryPairs(BoundaryPairs),
+
+    /// Les opérateurs de délimitation.
+    ///
+    /// Par exemple: '==', '!=', '+=', etc...
+    Operator(Operator),
 }
 
 // -------------- //
@@ -47,10 +57,11 @@ impl fmt::Display for Delimiter {
             f,
             "{}",
             match self {
-                | Delimiter::Symbol(symbol) => symbol.to_string(),
-                | Delimiter::BoundaryPairs(boundary_pairs) => {
+                | Self::Symbol(symbol) => symbol.to_string(),
+                | Self::BoundaryPairs(boundary_pairs) => {
                     boundary_pairs.to_string()
                 }
+                | Self::Operator(operator) => operator.to_string(),
             }
         )
     }
@@ -100,6 +111,11 @@ where
                 Self::BoundaryPairs(BoundaryPairs::RIGHT_CURLY_BRACKET)
             }
 
+            // Les opérateurs de délimitation.
+            //   - Opérateurs d'assignations.
+            | CodePoint::EQUALS_SIGN => {
+                Self::Operator(Operator::Assignment(Assignment::EQUAL))
+            }
             | _ => {
                 return Err(DelimiterParseError::Invalid {
                     found: codepoint.unit(),
