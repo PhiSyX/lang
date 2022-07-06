@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+mod boundary_pairs;
 pub(crate) mod error;
 mod r#macro;
 mod symbol;
@@ -11,6 +12,7 @@ use core::fmt;
 use codepoints::{CodePoint, CodePointInterface};
 
 use self::{
+    boundary_pairs::BoundaryPairs,
     error::DelimiterParseError,
     symbol::Symbol,
 };
@@ -28,6 +30,11 @@ pub enum Delimiter {
     ///
     /// Par exemple: '#', '@', '.', etc...
     Symbol(Symbol),
+
+    /// Les délimiteurs paires.
+    ///
+    /// Par exemple: '{', '}', '(', ')', etc...
+    BoundaryPairs(BoundaryPairs),
 }
 
 // -------------- //
@@ -41,6 +48,9 @@ impl fmt::Display for Delimiter {
             "{}",
             match self {
                 | Delimiter::Symbol(symbol) => symbol.to_string(),
+                | Delimiter::BoundaryPairs(boundary_pairs) => {
+                    boundary_pairs.to_string()
+                }
             }
         )
     }
@@ -69,6 +79,26 @@ where
             }
             | CodePoint::Unit(u) if u.is('`') => Self::Symbol(Symbol::TILDE),
             | CodePoint::QUESTION_MARK => Self::Symbol(Symbol::QUESTION_MARK),
+
+            // Les délimiteurs paires.
+            | CodePoint::LEFT_SQUARE_BRACKET => {
+                Self::BoundaryPairs(BoundaryPairs::LEFT_SQUARE_BRACKET)
+            }
+            | CodePoint::RIGHT_SQUARE_BRACKET => {
+                Self::BoundaryPairs(BoundaryPairs::RIGHT_SQUARE_BRACKET)
+            }
+            | CodePoint::LEFT_PARENTHESIS => {
+                Self::BoundaryPairs(BoundaryPairs::LEFT_PARENTHESIS)
+            }
+            | CodePoint::RIGHT_PARENTHESIS => {
+                Self::BoundaryPairs(BoundaryPairs::RIGHT_PARENTHESIS)
+            }
+            | CodePoint::LEFT_CURLY_BRACKET => {
+                Self::BoundaryPairs(BoundaryPairs::LEFT_CURLY_BRACKET)
+            }
+            | CodePoint::RIGHT_CURLY_BRACKET => {
+                Self::BoundaryPairs(BoundaryPairs::RIGHT_CURLY_BRACKET)
+            }
 
             | _ => {
                 return Err(DelimiterParseError::Invalid {
