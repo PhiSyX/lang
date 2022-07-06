@@ -5,6 +5,9 @@
 #[cfg(feature = "comment")]
 use crate::comment::{CommentOutput, CommentParseError};
 
+#[cfg(feature = "identifier")]
+use crate::identifier::{IdentifierOutput, IdentifierParseError};
+
 // --------- //
 // Interface //
 // --------- //
@@ -31,4 +34,12 @@ pub trait TokenizerAlgorithms {
     /// de code suivants jusqu'au premier U+002A ASTERISK (*) suivi d'un
     /// U+002F SOLIDUS (/), ou jusqu'à un point de code EOF (End Of File).
     fn consume_comments(&mut self) -> Result<CommentOutput, CommentParseError>;
+
+    #[cfg(feature = "identifier")]
+    /// Consommer un identifiant.
+    ///
+    /// Le résumé de l'algorithme, du code, dépend du langage.
+    fn consume_ident_sequence(
+        &mut self,
+    ) -> Result<IdentifierOutput, IdentifierParseError>;
 }
