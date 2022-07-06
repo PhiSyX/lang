@@ -5,6 +5,8 @@
 mod algorithms;
 #[cfg(feature = "comment")]
 pub mod comment;
+#[cfg(feature = "delimiter")]
+pub mod delimiter;
 mod error;
 mod io;
 

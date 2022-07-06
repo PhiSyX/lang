@@ -6,6 +6,7 @@ use stream::prelude::StreamIteratorError;
 
 #[cfg(feature = "comment")]
 use crate::comment::CommentParseError;
+use crate::delimiter::error::DelimiterParseError;
 
 // ----------- //
 // Énumération //
@@ -20,6 +21,10 @@ pub enum LexicalError {
     /// Erreur lors de l'analyse lexicale d'un commentaire.
     Comment(CommentParseError),
 
+    #[cfg(feature = "delimiter")]
+    /// Erreur lors de l'analyse lexicale d'un délimiteur/séparateur.
+    Delimiter(DelimiterParseError),
+
     EOS,
 }
 
@@ -31,6 +36,13 @@ pub enum LexicalError {
 impl From<CommentParseError> for LexicalError {
     fn from(error: CommentParseError) -> Self {
         Self::Comment(error)
+    }
+}
+
+#[cfg(feature = "delimiter")]
+impl From<DelimiterParseError> for LexicalError {
+    fn from(error: DelimiterParseError) -> Self {
+        Self::Delimiter(error)
     }
 }
 

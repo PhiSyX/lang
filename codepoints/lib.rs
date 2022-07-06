@@ -159,17 +159,41 @@ where
 }
 
 impl_codepoint! {
+    /// Point d'exclamation
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+0021 EXCLAMATION MARK (!)
+    |   '!'   =>  EXCLAMATION_MARK
+
     /// Hash
     ///
     /// Correspond à l'unité ASCII:
     ///   - U+0023 NUMBER SIGN (#)
     |   '#'   =>  NUMBER_SIGN
 
+    /// Pourcentage
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+0025 PERCENTAGE SIGN (%)
+    |   '%'   =>  PERCENTAGE_SIGN
+
+    /// &
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+0026 AMPERSAND (&)
+    |   '&'   =>  AMPERSAND
+
     /// Asterisk
     ///
     /// Correspond à l'unité ASCII:
     ///   - U+002A ASTERISK (*)
     |   '*'   =>  ASTERISK
+
+    /// Plus
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+002B PLUS SIGN (+)
+    |   '+'   =>  PLUS_SIGN
 
     /// Tiret
     ///
@@ -182,6 +206,24 @@ impl_codepoint! {
     /// Correspond à l'unité ASCII:
     ///   - U+002F SOLIDUS (/)
     |   '/'   =>  SOLIDUS
+
+    /// Signe <
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+003C LESS-THAN SIGN (<)
+    |   '<'   =>  LESS_THAN_SIGN
+
+    /// Signe >
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+003E GREATER-THAN SIGN (>)
+    |   '>'   =>  GREATER_THAN_SIGN
+
+    /// Question
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+003F QUESTION MARK (?)
+    |   '?'   =>  QUESTION_MARK
 
     /// Slash inversé
     ///
@@ -250,7 +292,25 @@ impl_codepoint! {
     ///
     /// Correspond à l'unité ASCII:
     ///    - U+003D EQUALS SIGN (=)
-    |   '='   => EQUALS_SIGN
+    |   '='   =>  EQUALS_SIGN
+
+    /// Accent circonflexe
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+005E CIRCUMFLEX ACCENT (^)
+    |   '^'   =>  CIRCUMFLEX_ACCENT
+
+    /// Pipe
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+007C VERTICAL LINE (|)
+    |   '|'   =>  VERTICAL_LINE
+
+    /// Tilde
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+007E TILDE (~)
+    |   '~'   =>  TILDE
 
     /// NULL.
     ///
