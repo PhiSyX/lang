@@ -16,12 +16,7 @@ use self::{
     boundary_pairs::BoundaryPairs,
     error::DelimiterParseError,
     operator::{
-        Arithmetic,
-        Assignment,
-        Bitwise,
-        Comparison,
-        Logical,
-        Operator,
+        Arithmetic, Assignment, Bitwise, Comparison, Logical, Operator,
     },
     symbol::Symbol,
 };
