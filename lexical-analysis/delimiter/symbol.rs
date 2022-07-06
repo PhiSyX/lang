@@ -11,6 +11,9 @@ delim! { - Symbol -
     DOLLAR          = '$';
     HASH            = '#';
     DOT             = '.';
+    RANGE           = "..";
+    RANGE_INCLUSIVE = "..=";
+
     COMMA           = ',';
     DOUBLE_COLON    = "::";
     COLON           = ':';
@@ -18,4 +21,7 @@ delim! { - Symbol -
     UNDERSCORE      = '_';
     TILDE           = '`';
     QUESTION_MARK   = '?';
+
+    SKINNY_ARROW    = "->";
+    FAT_ARROW       = "=>";
 }

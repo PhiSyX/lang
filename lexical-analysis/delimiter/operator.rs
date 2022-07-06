@@ -28,11 +28,28 @@ pub enum Operator {
 
 delim! { - Assignment -
     EQUAL = '=';
+    ADDITION = "+=";
+    SUBTRACTION = "-=";
+    MULTIPLICATION = "*=";
+    DIVISION = "/=";
+    REMAINDER = "%=";
+    EXPONENTIATION = "**=";
+    LEFT_SHIFT = "<<=";
+    RIGHT_SHIFT = ">>=";
+    BITWISE_AND = "&=";
+    BITWISE_XOR = "^=";
+    BITWISE_OR = "|=";
+    LOGICAL_AND = "&&=";
+    LOGICAL_OR = "||=";
 }
 
 delim! { - Comparison -
+    EQUAL = "==";
+    NOT_EQUAL = "!=";
     GREATER_THAN = '>';
+    GREATER_THAN_OR_EQUAL = ">=";
     LESS_THAN = '<';
+    LESS_THAN_OR_EQUAL = "<=";
 }
 
 delim! { - Arithmetic -
@@ -41,9 +58,12 @@ delim! { - Arithmetic -
     DIVISION = '/';
     MULTIPLICATION = '*';
     REMAINDER = '%';
+    EXPONENTIATION = "^^";
 }
 
 delim! { - Logical -
+    AND = "&&";
+    OR = "||";
     NOT = '!';
 }
 
@@ -52,6 +72,8 @@ delim! { - Bitwise -
     OR = '|';
     XOR = '^';
     NOT = '~';
+    LEFT_SHIFT = "<<";
+    RIGHT_SHIFT = ">>";
 }
 
 impl fmt::Display for Operator {
