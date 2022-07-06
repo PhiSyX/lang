@@ -18,6 +18,7 @@ use self::{
     operator::{
         Arithmetic,
         Assignment,
+        Bitwise,
         Comparison,
         Logical,
         Operator,
@@ -146,6 +147,20 @@ where
             | CodePoint::EXCLAMATION_MARK => {
                 Self::Operator(Operator::Logical(Logical::NOT))
             }
+            //  - Opérateurs binaires.
+            | CodePoint::AMPERSAND => {
+                Self::Operator(Operator::Bitwise(Bitwise::AND))
+            }
+            | CodePoint::VERTICAL_LINE => {
+                Self::Operator(Operator::Bitwise(Bitwise::OR))
+            }
+            | CodePoint::CIRCUMFLEX_ACCENT => {
+                Self::Operator(Operator::Bitwise(Bitwise::XOR))
+            }
+            | CodePoint::TILDE => {
+                Self::Operator(Operator::Bitwise(Bitwise::NOT))
+            }
+
             | _ => {
                 return Err(DelimiterParseError::Invalid {
                     found: codepoint.unit(),

@@ -19,6 +19,9 @@ pub enum Operator {
     /// Opérateurs arithmétiques
     Arithmetic(Arithmetic),
 
+    /// Opérateurs binaires
+    Bitwise(Bitwise),
+
     /// Opérateurs logiques
     Logical(Logical),
 }
@@ -44,6 +47,13 @@ delim! { - Logical -
     NOT = '!';
 }
 
+delim! { - Bitwise -
+    AND = '&';
+    OR = '|';
+    XOR = '^';
+    NOT = '~';
+}
+
 impl fmt::Display for Operator {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -53,6 +63,7 @@ impl fmt::Display for Operator {
                 | Self::Assignment(assignment) => assignment.to_string(),
                 | Self::Comparison(cmp) => cmp.to_string(),
                 | Self::Arithmetic(arithmetic) => arithmetic.to_string(),
+                | Self::Bitwise(bitwise) => bitwise.to_string(),
                 | Self::Logical(logical) => logical.to_string(),
             }
         )
