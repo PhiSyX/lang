@@ -6,6 +6,11 @@ use stream::prelude::StreamIteratorError;
 
 #[cfg(feature = "comment")]
 use crate::comment::CommentParseError;
+use crate::{
+    delimiter::error::DelimiterParseError,
+    identifier::IdentifierParseError,
+    literal::{IntegerParseError, LiteralParseError},
+};
 
 // ----------- //
 // Énumération //
@@ -20,6 +25,18 @@ pub enum LexicalError {
     /// Erreur lors de l'analyse lexicale d'un commentaire.
     Comment(CommentParseError),
 
+    #[cfg(feature = "delimiter")]
+    /// Erreur lors de l'analyse lexicale d'un délimiteur/séparateur.
+    Delimiter(DelimiterParseError),
+
+    #[cfg(feature = "identifier")]
+    /// Erreur lors de l'analyse lexicale d'un identifiant.
+    Identifier(IdentifierParseError),
+
+    #[cfg(feature = "literal")]
+    /// Erreur lors de l'analyse lexicale d'un literal.
+    Literal(LiteralParseError),
+
     EOS,
 }
 
@@ -31,6 +48,27 @@ pub enum LexicalError {
 impl From<CommentParseError> for LexicalError {
     fn from(error: CommentParseError) -> Self {
         Self::Comment(error)
+    }
+}
+
+#[cfg(feature = "delimiter")]
+impl From<DelimiterParseError> for LexicalError {
+    fn from(error: DelimiterParseError) -> Self {
+        Self::Delimiter(error)
+    }
+}
+
+#[cfg(feature = "identifier")]
+impl From<IdentifierParseError> for LexicalError {
+    fn from(error: IdentifierParseError) -> Self {
+        Self::Identifier(error)
+    }
+}
+
+#[cfg(feature = "literal")]
+impl From<IntegerParseError> for LexicalError {
+    fn from(error: IntegerParseError) -> Self {
+        Self::Literal(LiteralParseError::Integer(error))
     }
 }
 

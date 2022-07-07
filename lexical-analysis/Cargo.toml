@@ -1,16 +1,21 @@
 [package]
 name = "lang-lexer"
-version = "0.1.0"
+version = "0.5.1"
 license-file = "../LICENSE"
 edition = "2021"
 
 [features]
-default = ["comment"]
+default = ["comment", "delimiter", "keyword", "identifier", "literal"]
 comment = []
+delimiter = []
+keyword = []
+identifier = []
+literal = []
 
 [lib]
 path = "./lib.rs"
 
 [dependencies]
+codepoints = { path = "../codepoints", package = "lang-codepoints" }
 location = { path = "../location", package = "lang-location" }
 stream = { path = "../stream", package = "lang-stream" }
