@@ -8,6 +8,8 @@ mod r#macro;
 use crate::Kword;
 
 Kword! {
+    - Async    as async
+    - Await    as await
     - Function as fn | func | function
 
     - Let   as let
