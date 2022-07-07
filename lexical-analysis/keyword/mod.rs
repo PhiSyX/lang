@@ -31,6 +31,10 @@ Kword! {
     - Impl as impl
 
     - Export as export
+    - Type   as type
+    - As     as as
+    - From   as from
+    - Import as import | use
 }
 
 #[cfg(test)]
