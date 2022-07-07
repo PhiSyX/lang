@@ -7,7 +7,9 @@ use stream::prelude::StreamIteratorError;
 #[cfg(feature = "comment")]
 use crate::comment::CommentParseError;
 use crate::{
-    delimiter::error::DelimiterParseError, identifier::IdentifierParseError,
+    delimiter::error::DelimiterParseError,
+    identifier::IdentifierParseError,
+    literal::{IntegerParseError, LiteralParseError},
 };
 
 // ----------- //
@@ -30,6 +32,10 @@ pub enum LexicalError {
     #[cfg(feature = "identifier")]
     /// Erreur lors de l'analyse lexicale d'un identifiant.
     Identifier(IdentifierParseError),
+
+    #[cfg(feature = "literal")]
+    /// Erreur lors de l'analyse lexicale d'un literal.
+    Literal(LiteralParseError),
 
     EOS,
 }
@@ -56,6 +62,13 @@ impl From<DelimiterParseError> for LexicalError {
 impl From<IdentifierParseError> for LexicalError {
     fn from(error: IdentifierParseError) -> Self {
         Self::Identifier(error)
+    }
+}
+
+#[cfg(feature = "literal")]
+impl From<IntegerParseError> for LexicalError {
+    fn from(error: IntegerParseError) -> Self {
+        Self::Literal(LiteralParseError::Integer(error))
     }
 }
 
