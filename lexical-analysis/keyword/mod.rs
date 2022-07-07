@@ -23,6 +23,8 @@ Kword! {
     - If       as if
     - Else     as else
     - Match    as match
+
+    - Yield  as yield
     - Return as return
 
     - Struct    as struct
