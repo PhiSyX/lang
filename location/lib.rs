@@ -37,8 +37,8 @@ impl Location {
     pub fn new() -> Self {
         Self {
             line: 1,
-            column: 1,
-            total: 1,
+            column: 0,
+            total: 0,
         }
     }
 }
@@ -71,8 +71,8 @@ impl Default for Location {
     fn default() -> Self {
         Self {
             line: 1,
-            column: 1,
-            total: 1,
+            column: 0,
+            total: 0,
         }
     }
 }
