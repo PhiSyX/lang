@@ -16,12 +16,13 @@ Kword! {
 
     - Loop     as loop
     - For      as for
+    - In       as in
     - While    as while
     - Break    as break
     - Continue as continue
-    - If     as if
-    - Else   as else
-    - Match  as match
+    - If       as if
+    - Else     as else
+    - Match    as match
     - Return as return
 
     - Struct    as struct
