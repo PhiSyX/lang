@@ -4,9 +4,10 @@
 
 #[cfg(feature = "comment")]
 use crate::comment::{CommentOutput, CommentParseError};
-
 #[cfg(feature = "identifier")]
 use crate::identifier::{IdentifierOutput, IdentifierParseError};
+#[cfg(feature = "literal")]
+use crate::literal::{IntegerOutput, IntegerParseError};
 
 // --------- //
 // Interface //
@@ -42,4 +43,14 @@ pub trait TokenizerAlgorithms {
     fn consume_ident_sequence(
         &mut self,
     ) -> Result<IdentifierOutput, IdentifierParseError>;
+
+    #[cfg(feature = "literal")]
+    /// Consommer un nombre, entier.
+    ///
+    /// Un nombre peut être de type :
+    ///   1. Integer::Decimal     : `71`, `10.0`, `.463`
+    ///   2. Integer::Hexadecimal : `0x2A`
+    ///   3. Integer::Binaire     : `0b10000000000`
+    ///   4. Integer::Octal       : `0o2000`
+    fn consume_numeric(&mut self) -> Result<IntegerOutput, IntegerParseError>;
 }
