@@ -9,7 +9,11 @@ use crate::Kword;
 
 Kword! {
     Export   as export | pub | public,
-    Function as fn | func | function
+    Function as fn | func | function,
+
+    Let     as let,
+    Mut     as mut,
+    Const   as const
 }
 
 #[cfg(test)]

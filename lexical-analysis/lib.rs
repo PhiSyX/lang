@@ -13,6 +13,8 @@ pub mod identifier;
 mod io;
 #[cfg(feature = "keyword")]
 pub mod keyword;
+#[cfg(feature = "literal")]
+pub mod literal;
 
 pub mod prelude {
     pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
