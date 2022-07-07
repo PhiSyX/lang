@@ -23,6 +23,13 @@ Kword! {
     - Else   as else
     - Match  as match
     - Return as return
+
+    - Struct    as struct
+    - Enum      as enum
+    - Interface as interface
+
+    - Impl as impl
+
     - Export as export
 }
 
