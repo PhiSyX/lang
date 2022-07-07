@@ -33,7 +33,8 @@ Kword! {
     - Enum      as enum
     - Interface as interface
 
-    - Impl as impl
+    - Namespace as mod | namespace
+    - Impl      as impl
 
     - Export as export
     - Type   as type
