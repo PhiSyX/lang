@@ -6,8 +6,8 @@
 macro_rules! Kword {
     (
     $(
-        $name:ident as $( $variant:ident )|*
-    ),*
+        - $name:ident as $( $variant:ident )|*
+    )*
     ) => {
 // ----------- //
 // Énumération //

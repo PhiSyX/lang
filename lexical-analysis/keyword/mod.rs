@@ -8,12 +8,13 @@ mod r#macro;
 use crate::Kword;
 
 Kword! {
-    Export   as export | pub | public,
-    Function as fn | func | function,
+    - Function as fn | func | function
 
-    Let     as let,
-    Mut     as mut,
-    Const   as const
+    - Let   as let
+    - Mut   as mut
+    - Const as const
+
+    - Export as export
 }
 
 #[cfg(test)]
