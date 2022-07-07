@@ -14,6 +14,15 @@ Kword! {
     - Mut   as mut
     - Const as const
 
+    - Loop     as loop
+    - For      as for
+    - While    as while
+    - Break    as break
+    - Continue as continue
+    - If     as if
+    - Else   as else
+    - Match  as match
+    - Return as return
     - Export as export
 }
 
