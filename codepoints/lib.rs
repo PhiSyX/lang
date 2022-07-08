@@ -165,6 +165,12 @@ impl_codepoint! {
     ///   - U+0021 EXCLAMATION MARK (!)
     |   '!'   =>  EXCLAMATION_MARK
 
+    /// Double guillemet
+    ///
+    /// Correspond à l'unité ASCII:
+    ///   - U+0022 QUOTATION MARK (")
+    |   '"'   =>  QUOTATION_MARK
+
     /// Hash
     ///
     /// Correspond à l'unité ASCII:
@@ -182,6 +188,12 @@ impl_codepoint! {
     /// Correspond à l'unité ASCII:
     ///   - U+0026 AMPERSAND (&)
     |   '&'   =>  AMPERSAND
+
+    /// Simple guillemet
+    ///
+    /// Correspond à l'unité ASCII:
+    ///  - U+0027 APOSTROPHE (')
+    |   '\''   =>  APOSTROPHE
 
     /// Asterisk
     ///
