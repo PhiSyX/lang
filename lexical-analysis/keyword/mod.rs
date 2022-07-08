@@ -54,7 +54,5 @@ mod tests {
         assert_eq!("func".parse::<Keyword>(), Ok(Keyword::Function));
 
         assert_eq!("export".parse::<Keyword>(), Ok(Keyword::Export));
-        assert_eq!("pub".parse::<Keyword>(), Ok(Keyword::Export));
-        assert_eq!("public".parse::<Keyword>(), Ok(Keyword::Export));
     }
 }
