@@ -194,6 +194,7 @@ where
 		}
 
 		Ok(match codepoints {
+			// Le symboles de délimitation.
 			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP] => {
 				Self::Symbol(Symbol::RANGE)
 			}
@@ -204,28 +205,33 @@ where
 				Self::Symbol(Symbol::SKINNY_ARROW)
 			}
 
+			// Les opérateurs de délimitation.
+			//   - Opérateurs d'assignations.
+			| [CodePoint::PLUS_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Assignment(Assignment::ADDITION))
+			}
 			| [CodePoint::HYPHEN_MINUS, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Arithmetic(Arithmetic::SUBTRACTION))
+				Self::Operator(Operator::Assignment(Assignment::SUBTRACTION))
 			}
 			| [CodePoint::ASTERISK, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Arithmetic(Arithmetic::MULTIPLICATION))
+				Self::Operator(Operator::Assignment(Assignment::MULTIPLICATION))
 			}
 			| [CodePoint::SOLIDUS, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Arithmetic(Arithmetic::DIVISION))
+				Self::Operator(Operator::Assignment(Assignment::DIVISION))
 			}
 			| [CodePoint::PERCENTAGE_SIGN, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Arithmetic(Arithmetic::REMAINDER))
+				Self::Operator(Operator::Assignment(Assignment::REMAINDER))
 			}
 			| [CodePoint::AMPERSAND, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Bitwise(Bitwise::AND))
+				Self::Operator(Operator::Assignment(Assignment::BITWISE_AND))
 			}
 			| [CodePoint::CIRCUMFLEX_ACCENT, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Bitwise(Bitwise::XOR))
+				Self::Operator(Operator::Assignment(Assignment::BITWISE_XOR))
 			}
 			| [CodePoint::VERTICAL_LINE, CodePoint::EQUALS_SIGN] => {
-				Self::Operator(Operator::Bitwise(Bitwise::OR))
+				Self::Operator(Operator::Assignment(Assignment::BITWISE_OR))
 			}
-
+			//   - Opérateurs de comparaison.
 			| [CodePoint::EQUALS_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Comparison(Comparison::EQUAL))
 			}
@@ -237,18 +243,18 @@ where
 					Comparison::GREATER_THAN_OR_EQUAL,
 				))
 			}
-
-			| [CodePoint::ASTERISK, CodePoint::ASTERISK] => {
+			//   - Opérateurs arithmétiques.
+			| [CodePoint::CIRCUMFLEX_ACCENT, CodePoint::CIRCUMFLEX_ACCENT] => {
 				Self::Operator(Operator::Arithmetic(Arithmetic::EXPONENTIATION))
 			}
-
+			//  - Opérateurs logiques.
 			| [CodePoint::AMPERSAND, CodePoint::AMPERSAND] => {
 				Self::Operator(Operator::Logical(Logical::AND))
 			}
 			| [CodePoint::VERTICAL_LINE, CodePoint::VERTICAL_LINE] => {
 				Self::Operator(Operator::Logical(Logical::OR))
 			}
-
+			//   - Opérateurs binaires.
 			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN] => {
 				Self::Operator(Operator::Bitwise(Bitwise::LEFT_SHIFT))
 			}
@@ -274,10 +280,13 @@ where
 
 	fn try_from(codepoints: [CodePoint<U>; 3]) -> Result<Self, Self::Error> {
 		Ok(match codepoints {
+			// Le symboles de délimitation.
 			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP, CodePoint::EQUALS_SIGN] => {
 				Self::Symbol(Symbol::RANGE_INCLUSIVE)
 			}
 
+			// Les opérateurs de délimitation.
+			//   - Opérateurs d'assignations.
 			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::LEFT_SHIFT))
 			}
@@ -293,7 +302,7 @@ where
 
 			| _ => {
 				return Err(DelimiterParseError::Invalid {
-					found: codepoints.iter().map(|c| c.unit()).collect(),
+					found: codepoints.iter().map(|cd| cd.unit()).collect(),
 				});
 			}
 		})
