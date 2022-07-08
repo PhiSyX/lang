@@ -23,11 +23,26 @@ pub enum IntegerState {
     IsNot,
 }
 
+#[derive(Default)]
+pub enum StringState {
+    #[default]
+    Initial,
+
+    SingleQuoted,
+    DoubleQuoted,
+}
+
 // -------------- //
 // Implémentation //
 // -------------- //
 
 impl IntegerState {
+    pub fn switch(&mut self, new_state: Self) {
+        *self = new_state;
+    }
+}
+
+impl StringState {
     pub fn switch(&mut self, new_state: Self) {
         *self = new_state;
     }

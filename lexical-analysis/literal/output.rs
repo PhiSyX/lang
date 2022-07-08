@@ -5,3 +5,5 @@
 use super::int::Integer;
 
 pub type IntegerOutput = Integer;
+
+pub use super::string::StringOutput;

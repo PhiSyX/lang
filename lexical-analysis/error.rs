@@ -9,7 +9,7 @@ use crate::comment::CommentParseError;
 use crate::{
     delimiter::error::DelimiterParseError,
     identifier::IdentifierParseError,
-    literal::{IntegerParseError, LiteralParseError},
+    literal::{IntegerParseError, LiteralParseError, StringParseError},
 };
 
 // ----------- //
@@ -69,6 +69,13 @@ impl From<IdentifierParseError> for LexicalError {
 impl From<IntegerParseError> for LexicalError {
     fn from(error: IntegerParseError) -> Self {
         Self::Literal(LiteralParseError::Integer(error))
+    }
+}
+
+#[cfg(feature = "literal")]
+impl From<StringParseError> for LexicalError {
+    fn from(error: StringParseError) -> Self {
+        Self::Literal(LiteralParseError::String(error))
     }
 }
 

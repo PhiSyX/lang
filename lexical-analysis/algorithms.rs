@@ -7,7 +7,9 @@ use crate::comment::{CommentOutput, CommentParseError};
 #[cfg(feature = "identifier")]
 use crate::identifier::{IdentifierOutput, IdentifierParseError};
 #[cfg(feature = "literal")]
-use crate::literal::{IntegerOutput, IntegerParseError};
+use crate::literal::{
+    IntegerOutput, IntegerParseError, StringOutput, StringParseError,
+};
 
 // --------- //
 // Interface //
@@ -53,4 +55,12 @@ pub trait TokenizerAlgorithms {
     ///   3. Integer::Binaire     : `0b10000000000`
     ///   4. Integer::Octal       : `0o2000`
     fn consume_numeric(&mut self) -> Result<IntegerOutput, IntegerParseError>;
+
+    #[cfg(feature = "literal")]
+    /// Consommer une chaîne de caractères.
+    ///
+    /// Une chaîne de caractère commence par un U+0022 QUOTATION MARK (") suivi
+    /// d'une suite de caractères, et se termine par un U+0022 QUOTATION MARK
+    /// (").
+    fn consume_string(&mut self) -> Result<StringOutput, StringParseError>;
 }
