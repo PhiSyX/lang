@@ -12,6 +12,9 @@
 pub enum LiteralParseError {
     /// Erreur lors de l'analyse lexicale d'un nombre.
     Integer(IntegerParseError),
+
+    /// Erreur lors de l'analyse lexicale d'une chaîne de caractères.
+    String(StringParseError),
 }
 
 #[derive(Debug)]
@@ -20,4 +23,18 @@ pub enum LiteralParseError {
 pub enum IntegerParseError {
     /// Il ne s'agit pas un point de code numérique.
     IsNot { found: char },
+}
+
+#[derive(Debug)]
+#[derive(Copy, Clone)]
+#[derive(PartialEq, Eq)]
+pub enum StringParseError {
+    /// Il ne s'agit pas une chaîne de caractères.
+    IsNot { found: char },
+
+    /// La chaîne de caractère est mal formée.
+    BadString,
+
+    /// La chaîne de caractères n'est pas terminée.
+    Unterminated { line: usize, column: usize },
 }
