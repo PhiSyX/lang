@@ -6,6 +6,8 @@
 // Énumération //
 // ----------- //
 
+use crate::io::ParseState;
+
 /// État lexical d'un commentaire.
 #[derive(Default)]
 pub enum CommentState {
@@ -48,9 +50,9 @@ pub enum CommentState {
 // Implémentation //
 // -------------- //
 
-impl CommentState {
+impl ParseState for CommentState {
     /// Change l'état actuel du commentaire.
-    pub fn switch(&mut self, state: CommentState) {
+    fn switch(&mut self, state: CommentState) {
         *self = state;
     }
 }

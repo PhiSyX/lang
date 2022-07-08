@@ -20,4 +20,4 @@ pub mod prelude {
     pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
 }
 
-pub use self::io::Input;
+pub use self::io::{Input, ParseState};

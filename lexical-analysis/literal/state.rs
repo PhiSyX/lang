@@ -6,6 +6,8 @@
 // Énumération //
 // ----------- //
 
+use crate::io::ParseState;
+
 #[derive(Default)]
 pub enum IntegerState {
     #[default]
@@ -36,14 +38,14 @@ pub enum StringState {
 // Implémentation //
 // -------------- //
 
-impl IntegerState {
-    pub fn switch(&mut self, new_state: Self) {
+impl ParseState for IntegerState {
+    fn switch(&mut self, new_state: Self) {
         *self = new_state;
     }
 }
 
-impl StringState {
-    pub fn switch(&mut self, new_state: Self) {
+impl ParseState for StringState {
+    fn switch(&mut self, new_state: Self) {
         *self = new_state;
     }
 }

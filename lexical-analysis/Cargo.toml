@@ -1,6 +1,6 @@
 [package]
 name = "lang-lexer"
-version = "0.5.10"
+version = "0.5.11"
 license-file = "../LICENSE"
 edition = "2021"
 
