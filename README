@@ -1,6 +1,9 @@
 Il s'agit d'un dépôt permettant de faciliter la création d'un analyseur
 syntaxique avec du code très générique.
 
+L'idée est de migrer, petit à petit, du code déjà existant et répétitif des
+projets listés ci-bas.
+
 Actuellement utilisé
     - Pour MikuScript
         - ms    : syntaxe MikuScript ; syntaxe inspirée de Rust, Go, JavaScript.
@@ -10,3 +13,5 @@ Actuellement utilisé
     - Dans resworb : un navigateur web.
         - resworb/css/parser  : pour parser la syntaxe CSS.
         - resworb/html/parser : pour parser la syntaxe HTML.
+
+État : WIP. L'API, le code, etc, peut changer à tout moment.
