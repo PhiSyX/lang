@@ -11,39 +11,39 @@ use crate::io::ParseState;
 /// État lexical d'un commentaire.
 #[derive(Default)]
 pub enum CommentState {
-    /// L'état de départ d'un commentaire.
-    ///
-    /// L'état suivant de cet état est :
-    ///   - [CommentState::Start].
-    #[default]
-    Initial,
+	/// L'état de départ d'un commentaire.
+	///
+	/// L'état suivant de cet état est :
+	///   - [CommentState::Start].
+	#[default]
+	Initial,
 
-    /// Début du commentaire.
-    ///
-    /// L'état suivant de cet état est :
-    ///    - [CommentState::Singleline]
-    ///    - [CommentState::Multiline]
-    Start,
+	/// Début du commentaire.
+	///
+	/// L'état suivant de cet état est :
+	///    - [CommentState::Singleline]
+	///    - [CommentState::Multiline]
+	Start,
 
-    /// L'état d'un commentaire d'une seule ligne.
-    ///
-    /// L'état suivant de cet état est :
-    ///   - [CommentState::SinglelineEnd],
-    Singleline,
+	/// L'état d'un commentaire d'une seule ligne.
+	///
+	/// L'état suivant de cet état est :
+	///   - [CommentState::SinglelineEnd],
+	Singleline,
 
-    /// L'état de fin de commentaire d'une seule ligne.
-    ///
-    /// Soit:
-    ///    - Le point de code `\n` a été consommé.
-    ///
-    /// Une [sortie](super::output::CommentOutput) est retournée.
-    SinglelineEnd,
+	/// L'état de fin de commentaire d'une seule ligne.
+	///
+	/// Soit:
+	///    - Le point de code `\n` a été consommé.
+	///
+	/// Une [sortie](super::output::CommentOutput) est retournée.
+	SinglelineEnd,
 
-    /// L'état d'un commentaire de plusieurs lignes.
-    Multiline,
-    MultilineAfterFirstCodePoint, // *
-    /// L'état de fin de commentaire de plusieurs lignes.
-    MultilineEnd,
+	/// L'état d'un commentaire de plusieurs lignes.
+	Multiline,
+	MultilineAfterFirstCodePoint, // *
+	/// L'état de fin de commentaire de plusieurs lignes.
+	MultilineEnd,
 }
 
 // -------------- //
@@ -51,8 +51,8 @@ pub enum CommentState {
 // -------------- //
 
 impl ParseState for CommentState {
-    /// Change l'état actuel du commentaire.
-    fn switch(&mut self, state: CommentState) {
-        *self = state;
-    }
+	/// Change l'état actuel du commentaire.
+	fn switch(&mut self, state: CommentState) {
+		*self = state;
+	}
 }

@@ -7,17 +7,17 @@
 // --------- //
 
 pub trait Input {
-    type Output;
-    type State: ParseState;
+	type Output;
+	type State: ParseState;
 
-    /// Fonction d'analyse.
-    fn parse(self) -> Self::Output;
+	/// Fonction d'analyse.
+	fn parse(self) -> Self::Output;
 }
 
 pub trait ParseState {
-    fn switch(&mut self, new_state: Self);
+	fn switch(&mut self, new_state: Self);
 }
 
 impl ParseState for () {
-    fn switch(&mut self, _: Self) {}
+	fn switch(&mut self, _: Self) {}
 }

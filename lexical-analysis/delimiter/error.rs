@@ -12,8 +12,8 @@ use core::fmt;
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub enum DelimiterParseError {
-    /// N'est pas un délimiteur/séparateur valide.
-    Invalid { found: char },
+	/// N'est pas un délimiteur/séparateur valide.
+	Invalid { found: char },
 }
 
 // -------------- //
@@ -21,14 +21,14 @@ pub enum DelimiterParseError {
 // -------------- //
 
 impl fmt::Display for DelimiterParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                | Self::Invalid { .. } =>
-                    "Il ne s'agit pas d'un délimiteur valide.",
-            }
-        )
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+				| Self::Invalid { .. } =>
+					"Il ne s'agit pas d'un délimiteur valide.",
+			}
+		)
+	}
 }

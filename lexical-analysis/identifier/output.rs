@@ -12,6 +12,6 @@ use location::Location;
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub struct IdentifierOutput {
-    pub identifier: String,
-    pub location: Location,
+	pub identifier: String,
+	pub location: Location,
 }

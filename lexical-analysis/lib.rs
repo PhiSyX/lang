@@ -17,7 +17,7 @@ pub mod keyword;
 pub mod literal;
 
 pub mod prelude {
-    pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
+	pub use super::{algorithms::TokenizerAlgorithms, error::LexicalError};
 }
 
 pub use self::io::{Input, ParseState};

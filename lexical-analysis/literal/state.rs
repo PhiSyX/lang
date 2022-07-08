@@ -10,28 +10,28 @@ use crate::io::ParseState;
 
 #[derive(Default)]
 pub enum IntegerState {
-    #[default]
-    Initial,
+	#[default]
+	Initial,
 
-    Zero,
+	Zero,
 
-    DecimalInteger,
-    DecimalFloat,
+	DecimalInteger,
+	DecimalFloat,
 
-    Hexadecimal,
-    Binary,
-    Octal,
+	Hexadecimal,
+	Binary,
+	Octal,
 
-    IsNot,
+	IsNot,
 }
 
 #[derive(Default)]
 pub enum StringState {
-    #[default]
-    Initial,
+	#[default]
+	Initial,
 
-    SingleQuoted,
-    DoubleQuoted,
+	SingleQuoted,
+	DoubleQuoted,
 }
 
 // -------------- //
@@ -39,13 +39,13 @@ pub enum StringState {
 // -------------- //
 
 impl ParseState for IntegerState {
-    fn switch(&mut self, new_state: Self) {
-        *self = new_state;
-    }
+	fn switch(&mut self, new_state: Self) {
+		*self = new_state;
+	}
 }
 
 impl ParseState for StringState {
-    fn switch(&mut self, new_state: Self) {
-        *self = new_state;
-    }
+	fn switch(&mut self, new_state: Self) {
+		*self = new_state;
+	}
 }

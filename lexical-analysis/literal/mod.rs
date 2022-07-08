@@ -21,11 +21,11 @@ pub use self::{error::*, output::*, state::*};
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub enum Literal {
-    /// Nombre.
-    Integer(Integer),
+	/// Nombre.
+	Integer(Integer),
 
-    /// Chaîne de caractères.
-    String(StringOutput),
+	/// Chaîne de caractères.
+	String(StringOutput),
 }
 
 // -------------- //
@@ -33,11 +33,11 @@ pub enum Literal {
 // -------------- //
 
 impl fmt::Display for Literal {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let l = match self {
-            | Literal::Integer(int) => int.to_string(),
-            | Literal::String(_) => "string".to_owned(),
-        };
-        write!(f, "{l}")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		let l = match self {
+			| Literal::Integer(int) => int.to_string(),
+			| Literal::String(_) => "string".to_owned(),
+		};
+		write!(f, "{l}")
+	}
 }

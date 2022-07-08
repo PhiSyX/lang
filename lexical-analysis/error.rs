@@ -7,9 +7,9 @@ use stream::prelude::StreamIteratorError;
 #[cfg(feature = "comment")]
 use crate::comment::CommentParseError;
 use crate::{
-    delimiter::error::DelimiterParseError,
-    identifier::IdentifierParseError,
-    literal::{IntegerParseError, LiteralParseError, StringParseError},
+	delimiter::error::DelimiterParseError,
+	identifier::IdentifierParseError,
+	literal::{IntegerParseError, LiteralParseError, StringParseError},
 };
 
 // ----------- //
@@ -21,23 +21,23 @@ use crate::{
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub enum LexicalError {
-    #[cfg(feature = "comment")]
-    /// Erreur lors de l'analyse lexicale d'un commentaire.
-    Comment(CommentParseError),
+	#[cfg(feature = "comment")]
+	/// Erreur lors de l'analyse lexicale d'un commentaire.
+	Comment(CommentParseError),
 
-    #[cfg(feature = "delimiter")]
-    /// Erreur lors de l'analyse lexicale d'un délimiteur/séparateur.
-    Delimiter(DelimiterParseError),
+	#[cfg(feature = "delimiter")]
+	/// Erreur lors de l'analyse lexicale d'un délimiteur/séparateur.
+	Delimiter(DelimiterParseError),
 
-    #[cfg(feature = "identifier")]
-    /// Erreur lors de l'analyse lexicale d'un identifiant.
-    Identifier(IdentifierParseError),
+	#[cfg(feature = "identifier")]
+	/// Erreur lors de l'analyse lexicale d'un identifiant.
+	Identifier(IdentifierParseError),
 
-    #[cfg(feature = "literal")]
-    /// Erreur lors de l'analyse lexicale d'un literal.
-    Literal(LiteralParseError),
+	#[cfg(feature = "literal")]
+	/// Erreur lors de l'analyse lexicale d'un literal.
+	Literal(LiteralParseError),
 
-    EOS,
+	EOS,
 }
 
 // -------------- //
@@ -46,41 +46,41 @@ pub enum LexicalError {
 
 #[cfg(feature = "comment")]
 impl From<CommentParseError> for LexicalError {
-    fn from(error: CommentParseError) -> Self {
-        Self::Comment(error)
-    }
+	fn from(error: CommentParseError) -> Self {
+		Self::Comment(error)
+	}
 }
 
 #[cfg(feature = "delimiter")]
 impl From<DelimiterParseError> for LexicalError {
-    fn from(error: DelimiterParseError) -> Self {
-        Self::Delimiter(error)
-    }
+	fn from(error: DelimiterParseError) -> Self {
+		Self::Delimiter(error)
+	}
 }
 
 #[cfg(feature = "identifier")]
 impl From<IdentifierParseError> for LexicalError {
-    fn from(error: IdentifierParseError) -> Self {
-        Self::Identifier(error)
-    }
+	fn from(error: IdentifierParseError) -> Self {
+		Self::Identifier(error)
+	}
 }
 
 #[cfg(feature = "literal")]
 impl From<IntegerParseError> for LexicalError {
-    fn from(error: IntegerParseError) -> Self {
-        Self::Literal(LiteralParseError::Integer(error))
-    }
+	fn from(error: IntegerParseError) -> Self {
+		Self::Literal(LiteralParseError::Integer(error))
+	}
 }
 
 #[cfg(feature = "literal")]
 impl From<StringParseError> for LexicalError {
-    fn from(error: StringParseError) -> Self {
-        Self::Literal(LiteralParseError::String(error))
-    }
+	fn from(error: StringParseError) -> Self {
+		Self::Literal(LiteralParseError::String(error))
+	}
 }
 
 impl StreamIteratorError for LexicalError {
-    fn eos() -> Self {
-        Self::EOS
-    }
+	fn eos() -> Self {
+		Self::EOS
+	}
 }

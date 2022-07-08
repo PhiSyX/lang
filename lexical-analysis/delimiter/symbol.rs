@@ -5,23 +5,23 @@
 use crate::delim;
 
 delim! { - Symbol -
-    ESCAPE          = '\\';
+	ESCAPE          = '\\';
 
-    AT              = '@';
-    DOLLAR          = '$';
-    HASH            = '#';
-    DOT             = '.';
-    RANGE           = "..";
-    RANGE_INCLUSIVE = "..=";
+	AT              = '@';
+	DOLLAR          = '$';
+	HASH            = '#';
+	DOT             = '.';
+	RANGE           = "..";
+	RANGE_INCLUSIVE = "..=";
 
-    COMMA           = ',';
-    DOUBLE_COLON    = "::";
-    COLON           = ':';
-    SEMICOLON       = ';';
-    UNDERSCORE      = '_';
-    TILDE           = '`';
-    QUESTION_MARK   = '?';
+	COMMA           = ',';
+	DOUBLE_COLON    = "::";
+	COLON           = ':';
+	SEMICOLON       = ';';
+	UNDERSCORE      = '_';
+	TILDE           = '`';
+	QUESTION_MARK   = '?';
 
-    SKINNY_ARROW    = "->";
-    FAT_ARROW       = "=>";
+	SKINNY_ARROW    = "->";
+	FAT_ARROW       = "=>";
 }

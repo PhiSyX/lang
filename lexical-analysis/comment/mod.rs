@@ -7,7 +7,7 @@ mod output;
 mod state;
 
 pub use self::{
-    error::CommentParseError,
-    output::{CommentOutput, CommentType},
-    state::CommentState,
+	error::CommentParseError,
+	output::{CommentOutput, CommentType},
+	state::CommentState,
 };

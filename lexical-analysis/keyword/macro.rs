@@ -4,11 +4,11 @@
 
 #[macro_export]
 macro_rules! Kword {
-    (
-    $(
-        - $name:ident as $( $variant:ident )|*
-    )*
-    ) => {
+	(
+	$(
+		- $name:ident as $( $variant:ident )|*
+	)*
+	) => {
 // ----------- //
 // Énumération //
 // ----------- //
@@ -17,11 +17,11 @@ macro_rules! Kword {
 #[derive(Copy, Clone)]
 #[derive(PartialEq, Eq)]
 pub enum Keyword {
-    $(
-        #[doc = "Le mot-clé : "]
-        #[doc = stringify!($name)]
-        $name
-    ),*
+	$(
+		#[doc = "Le mot-clé : "]
+		#[doc = stringify!($name)]
+		$name
+	),*
 }
 
 // -------------- //
@@ -29,34 +29,34 @@ pub enum Keyword {
 // -------------- //
 
 impl core::str::FromStr for Keyword {
-    type Err = self::error::KeywordParseError;
+	type Err = self::error::KeywordParseError;
 
-    fn from_str(input: &str) -> Result<Self, Self::Err> {
-        Ok(match input {
-        $(
-            $( | stringify!($variant) )* => Self::$name,
-        )*
-            | _ => {
-                return Err(Self::Err::Unknown {
-                    found: input.to_string(),
-                })
-            }
-        })
-    }
+	fn from_str(input: &str) -> Result<Self, Self::Err> {
+		Ok(match input {
+		$(
+			$( | stringify!($variant) )* => Self::$name,
+		)*
+			| _ => {
+				return Err(Self::Err::Unknown {
+					found: input.to_string(),
+				})
+			}
+		})
+	}
 }
 
 impl core::fmt::Display for Keyword {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-            $(
-                | Self::$name => stringify!($name).to_ascii_lowercase()
-            ),*
-            }
-        )
-    }
+	fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+			$(
+				| Self::$name => stringify!($name).to_ascii_lowercase()
+			),*
+			}
+		)
+	}
 }
-    };
+	};
 }

@@ -11,7 +11,7 @@ use core::fmt;
 #[derive(Debug)]
 #[derive(PartialEq, Eq)]
 pub enum KeywordParseError {
-    Unknown { found: String },
+	Unknown { found: String },
 }
 
 // -------------- //
@@ -19,14 +19,14 @@ pub enum KeywordParseError {
 // -------------- //
 
 impl fmt::Display for KeywordParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                | Self::Unknown { found } =>
-                    format!("Le mot-clé {} n'existe pas.", found),
-            }
-        )
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+				| Self::Unknown { found } =>
+					format!("Le mot-clé {} n'existe pas.", found),
+			}
+		)
+	}
 }

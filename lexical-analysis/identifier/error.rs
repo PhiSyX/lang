@@ -12,5 +12,5 @@ use crate::keyword::Keyword;
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub enum IdentifierParseError {
-    IsKeyword { found: Keyword },
+	IsKeyword { found: Keyword },
 }

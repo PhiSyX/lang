@@ -12,25 +12,25 @@ use core::fmt;
 #[derive(Clone)]
 #[derive(PartialEq, Eq)]
 pub enum Integer {
-    /// Nombre décimal.
-    ///
-    /// Exemple: 71, 10.0, 1.463, ...
-    Decimal { int: String },
+	/// Nombre décimal.
+	///
+	/// Exemple: 71, 10.0, 1.463, ...
+	Decimal { int: String },
 
-    /// Nombre hexadécimal.
-    ///
-    /// Exemple: 0x2A, ...
-    Hexadecimal { hex: String },
+	/// Nombre hexadécimal.
+	///
+	/// Exemple: 0x2A, ...
+	Hexadecimal { hex: String },
 
-    /// Nombre binaire.
-    ///
-    /// Exemple: 0b10000000000, ...
-    Binary { bin: String },
+	/// Nombre binaire.
+	///
+	/// Exemple: 0b10000000000, ...
+	Binary { bin: String },
 
-    /// Nombre octal.
-    ///
-    /// Exemple: 0o2000, ...
-    Octal { oct: String },
+	/// Nombre octal.
+	///
+	/// Exemple: 0o2000, ...
+	Octal { oct: String },
 }
 
 // -------------- //
@@ -38,13 +38,13 @@ pub enum Integer {
 // -------------- //
 
 impl fmt::Display for Integer {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let s: &'static str = match self {
-            | Self::Decimal { .. } => "decimal",
-            | Self::Hexadecimal { .. } => "hexadecimal",
-            | Self::Binary { .. } => "binary",
-            | Self::Octal { .. } => "octal",
-        };
-        write!(f, "numeric-{s}")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		let s: &'static str = match self {
+			| Self::Decimal { .. } => "decimal",
+			| Self::Hexadecimal { .. } => "hexadecimal",
+			| Self::Binary { .. } => "binary",
+			| Self::Octal { .. } => "octal",
+		};
+		write!(f, "numeric-{s}")
+	}
 }

@@ -12,33 +12,33 @@ use core::fmt;
 #[derive(Copy, Clone)]
 #[derive(PartialEq, Eq)]
 pub enum LiteralParseError {
-    /// Erreur lors de l'analyse lexicale d'un nombre.
-    Integer(IntegerParseError),
+	/// Erreur lors de l'analyse lexicale d'un nombre.
+	Integer(IntegerParseError),
 
-    /// Erreur lors de l'analyse lexicale d'une chaîne de caractères.
-    String(StringParseError),
+	/// Erreur lors de l'analyse lexicale d'une chaîne de caractères.
+	String(StringParseError),
 }
 
 #[derive(Debug)]
 #[derive(Copy, Clone)]
 #[derive(PartialEq, Eq)]
 pub enum IntegerParseError {
-    /// Il ne s'agit pas un point de code numérique.
-    IsNot { found: char },
+	/// Il ne s'agit pas un point de code numérique.
+	IsNot { found: char },
 }
 
 #[derive(Debug)]
 #[derive(Copy, Clone)]
 #[derive(PartialEq, Eq)]
 pub enum StringParseError {
-    /// Il ne s'agit pas une chaîne de caractères.
-    IsNot { found: char },
+	/// Il ne s'agit pas une chaîne de caractères.
+	IsNot { found: char },
 
-    /// La chaîne de caractère est mal formée.
-    BadString,
+	/// La chaîne de caractère est mal formée.
+	BadString,
 
-    /// La chaîne de caractères n'est pas terminée.
-    Unterminated { line: usize, column: usize },
+	/// La chaîne de caractères n'est pas terminée.
+	Unterminated { line: usize, column: usize },
 }
 
 // -------------- //
@@ -46,36 +46,36 @@ pub enum StringParseError {
 // -------------- //
 
 impl fmt::Display for LiteralParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                | Self::Integer(err) => err.to_string(),
-                | Self::String(err) => err.to_string(),
-            }
-        )
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+				| Self::Integer(err) => err.to_string(),
+				| Self::String(err) => err.to_string(),
+			}
+		)
+	}
 }
 
 impl fmt::Display for IntegerParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "{}",
-            match self {
-                | Self::IsNot { found } => format!(
-                    "Le caractère '{}' n'est pas un point de code numérique.",
-                    found
-                ),
-            }
-        )
-    }
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
+			f,
+			"{}",
+			match self {
+				| Self::IsNot { found } => format!(
+					"Le caractère '{}' n'est pas un point de code numérique.",
+					found
+				),
+			}
+		)
+	}
 }
 
 impl fmt::Display for StringParseError {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
             f,
             "{}",
             match self {
@@ -90,5 +90,5 @@ impl fmt::Display for StringParseError {
                 ),
             }
         )
-    }
+	}
 }

@@ -15,8 +15,8 @@ use location::{Location, LocationInterface};
 #[derive(Default)]
 #[derive(PartialEq, Eq)]
 pub struct StringOutput {
-    pub data: String,
-    pub location: Location,
+	pub data: String,
+	pub location: Location,
 }
 
 // -------------- //
@@ -24,10 +24,10 @@ pub struct StringOutput {
 // -------------- //
 
 impl StringOutput {
-    pub fn append(&mut self, ch: char) {
-        self.data.push(ch);
-        self.location.increment_column();
-    }
+	pub fn append(&mut self, ch: char) {
+		self.data.push(ch);
+		self.location.increment_column();
+	}
 }
 
 // -------------- //
@@ -35,9 +35,9 @@ impl StringOutput {
 // -------------- //
 
 impl ops::Deref for StringOutput {
-    type Target = str;
+	type Target = str;
 
-    fn deref(&self) -> &Self::Target {
-        &self.data
-    }
+	fn deref(&self) -> &Self::Target {
+		&self.data
+	}
 }
