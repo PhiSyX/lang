@@ -126,6 +126,13 @@ where
 			.unwrap()
 	}
 
+	fn peek_n_next(
+		&mut self,
+		n: usize,
+	) -> Vec<Result<Self::Item, Self::Error>> {
+		todo!("peek_{n}_next")
+	}
+
 	fn reconsume_current(&mut self) {
 		self.reconsume_now = true;
 		let last_consumed_element = self

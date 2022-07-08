@@ -6,6 +6,7 @@ mod boundary_pairs;
 pub(crate) mod error;
 mod r#macro;
 mod operator;
+mod output;
 mod symbol;
 
 use core::fmt;
@@ -14,12 +15,12 @@ use codepoints::{CodePoint, CodePointInterface};
 
 use self::{
 	boundary_pairs::BoundaryPairs,
-	error::DelimiterParseError,
 	operator::{
 		Arithmetic, Assignment, Bitwise, Comparison, Logical, Operator,
 	},
 	symbol::Symbol,
 };
+pub use self::{error::DelimiterParseError, output::DelimiterOutput};
 
 // ----------- //
 // Énumération //
@@ -156,10 +157,144 @@ where
 				Self::Operator(Operator::Bitwise(Bitwise::NOT))
 			}
 
+			| _ if codepoint.is_valid() => {
+				return Err(DelimiterParseError::Invalid {
+					found: String::from(codepoint.unit()),
+				})
+			}
+
 			| _ => {
 				return Err(DelimiterParseError::Invalid {
-					found: codepoint.unit(),
+					found: String::default(),
 				})
+			}
+		})
+	}
+}
+
+// 2 points de code.
+impl<U> TryFrom<[CodePoint<U>; 2]> for Delimiter
+where
+	U: CodePointInterface,
+{
+	type Error = DelimiterParseError;
+
+	fn try_from(codepoints: [CodePoint<U>; 2]) -> Result<Self, Self::Error> {
+		let [left, right] = codepoints;
+		if left == CodePoint::GREATER_THAN_SIGN
+			&& right == CodePoint::LESS_THAN_SIGN
+		{
+			return Ok(Self::Symbol(Symbol::FAT_ARROW));
+		} else if left == CodePoint::LESS_THAN_SIGN
+			&& right == CodePoint::GREATER_THAN_SIGN
+		{
+			return Ok(Self::Operator(Operator::Comparison(
+				Comparison::LESS_THAN_OR_EQUAL,
+			)));
+		}
+
+		Ok(match codepoints {
+			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP] => {
+				Self::Symbol(Symbol::RANGE)
+			}
+			| [CodePoint::COLON, CodePoint::COLON] => {
+				Self::Symbol(Symbol::DOUBLE_COLON)
+			}
+			| [CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Symbol(Symbol::SKINNY_ARROW)
+			}
+
+			| [CodePoint::HYPHEN_MINUS, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Arithmetic(Arithmetic::SUBTRACTION))
+			}
+			| [CodePoint::ASTERISK, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Arithmetic(Arithmetic::MULTIPLICATION))
+			}
+			| [CodePoint::SOLIDUS, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Arithmetic(Arithmetic::DIVISION))
+			}
+			| [CodePoint::PERCENTAGE_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Arithmetic(Arithmetic::REMAINDER))
+			}
+			| [CodePoint::AMPERSAND, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Bitwise(Bitwise::AND))
+			}
+			| [CodePoint::CIRCUMFLEX_ACCENT, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Bitwise(Bitwise::XOR))
+			}
+			| [CodePoint::VERTICAL_LINE, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Bitwise(Bitwise::OR))
+			}
+
+			| [CodePoint::EQUALS_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Comparison(Comparison::EQUAL))
+			}
+			| [CodePoint::EXCLAMATION_MARK, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Comparison(Comparison::NOT_EQUAL))
+			}
+			| [CodePoint::GREATER_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Comparison(
+					Comparison::GREATER_THAN_OR_EQUAL,
+				))
+			}
+
+			| [CodePoint::ASTERISK, CodePoint::ASTERISK] => {
+				Self::Operator(Operator::Arithmetic(Arithmetic::EXPONENTIATION))
+			}
+
+			| [CodePoint::AMPERSAND, CodePoint::AMPERSAND] => {
+				Self::Operator(Operator::Logical(Logical::AND))
+			}
+			| [CodePoint::VERTICAL_LINE, CodePoint::VERTICAL_LINE] => {
+				Self::Operator(Operator::Logical(Logical::OR))
+			}
+
+			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN] => {
+				Self::Operator(Operator::Bitwise(Bitwise::LEFT_SHIFT))
+			}
+			| [CodePoint::GREATER_THAN_SIGN, CodePoint::GREATER_THAN_SIGN] => {
+				Self::Operator(Operator::Bitwise(Bitwise::RIGHT_SHIFT))
+			}
+
+			| _ => {
+				return Err(DelimiterParseError::Invalid {
+					found: codepoints.iter().map(|c| c.unit()).collect(),
+				});
+			}
+		})
+	}
+}
+
+// 3 points de code.
+impl<U> TryFrom<[CodePoint<U>; 3]> for Delimiter
+where
+	U: CodePointInterface,
+{
+	type Error = DelimiterParseError;
+
+	fn try_from(codepoints: [CodePoint<U>; 3]) -> Result<Self, Self::Error> {
+		Ok(match codepoints {
+			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP, CodePoint::EQUALS_SIGN] => {
+				Self::Symbol(Symbol::RANGE_INCLUSIVE)
+			}
+
+			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Assignment(Assignment::LEFT_SHIFT))
+			}
+			| [CodePoint::GREATER_THAN_SIGN, CodePoint::GREATER_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Assignment(Assignment::RIGHT_SHIFT))
+			}
+			| [CodePoint::AMPERSAND, CodePoint::AMPERSAND, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Assignment(Assignment::LOGICAL_AND))
+			}
+			| [CodePoint::VERTICAL_LINE, CodePoint::VERTICAL_LINE, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Assignment(Assignment::LOGICAL_OR))
+			}
+
+			| _ => {
+				return Err(DelimiterParseError::Invalid {
+					found: codepoints.iter().map(|c| c.unit()).collect(),
+				});
 			}
 		})
 	}

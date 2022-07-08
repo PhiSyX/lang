@@ -160,6 +160,18 @@ where
 		}
 	}
 
+	fn peek_n_next(
+		&mut self,
+		n: usize,
+	) -> Vec<Result<Self::Item, Self::Error>> {
+		self.queue
+			.peek_next_until::<Vec<U>>(n)
+			.unwrap_or_default()
+			.iter()
+			.map(|unit| Ok((self.filter_scan_fn)(unit)))
+			.collect()
+	}
+
 	fn reconsume_current(&mut self) {
 		let own_current_input = self.current_input.to_owned();
 		self.queue.reconsume(own_current_input);

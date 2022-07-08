@@ -33,7 +33,6 @@ delim! { - Assignment -
 	MULTIPLICATION = "*=";
 	DIVISION = "/=";
 	REMAINDER = "%=";
-	EXPONENTIATION = "**=";
 	LEFT_SHIFT = "<<=";
 	RIGHT_SHIFT = ">>=";
 	BITWISE_AND = "&=";

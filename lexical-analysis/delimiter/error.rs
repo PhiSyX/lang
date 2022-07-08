@@ -13,7 +13,7 @@ use core::fmt;
 #[derive(PartialEq, Eq)]
 pub enum DelimiterParseError {
 	/// N'est pas un délimiteur/séparateur valide.
-	Invalid { found: char },
+	Invalid { found: String },
 }
 
 // -------------- //

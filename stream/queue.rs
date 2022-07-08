@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-use core::ops;
+use core::{ops, ops::Range};
 
 // --------- //
 // Structure //
@@ -73,6 +73,21 @@ where
 	pub fn peek_next(&mut self) -> Option<I> {
 		self.fill(self.look_ahead_offset);
 		self.temporary_list.get(self.look_ahead_offset).cloned()
+	}
+
+	pub fn peek_next_until<R: FromIterator<I>>(
+		&mut self,
+		lookahead_offset: usize,
+	) -> Option<R> {
+		self.peek_next_range(0..lookahead_offset)
+			.map(|items| items.iter().map(|mch| mch.to_owned()).collect::<R>())
+	}
+
+	fn peek_next_range(&mut self, range: Range<usize>) -> Option<&[I]> {
+		if range.end > self.temporary_list.len() {
+			self.fill(range.end);
+		}
+		self.temporary_list.get(range)
 	}
 }
 

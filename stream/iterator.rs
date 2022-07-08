@@ -79,6 +79,10 @@ pub trait StreamIterator {
 	/// fonction.
 	fn peek_next(&mut self) -> Result<Self::Item, Self::Error>;
 
+	/// Les prochains éléments d'un flux. Ne DOIT PAS consommer l'itérateur.
+	fn peek_n_next(&mut self, n: usize)
+		-> Vec<Result<Self::Item, Self::Error>>;
+
 	/// Pousse (l'entrée actuelle](Self::current_input) à l'avant d'un
 	/// flux, de sorte que la prochaine fois qu'il sera demandée de
 	/// consommer l'entrée suivante, il reprendra plutôt l'entrée actuelle.
