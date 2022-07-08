@@ -62,5 +62,11 @@ pub trait TokenizerAlgorithms {
 	/// Une chaîne de caractère commence par un U+0022 QUOTATION MARK (") suivi
 	/// d'une suite de caractères, et se termine par un U+0022 QUOTATION MARK
 	/// (").
+	/// Dans certaines syntaxes, une chaîne de caractères peut également être
+	/// délimitée par un point de code U+0027 APOSTROPHE (') suivi d'une suite
+	/// de caractères, et se terminant par un point de code U+0027 APOSTROPHE
+	/// ('). Exemple, en JavaScript avec `'hello'`. Ce n'est pas le cas dans
+	/// MikuScript. La syntaxe de MikuScript utilise le point de code U+0027
+	/// pour désigner un SEUL caractère (EX: `let ch: char = 'C';`).
 	fn consume_string(&mut self) -> Result<StringOutput, StringParseError>;
 }

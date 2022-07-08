@@ -13,8 +13,7 @@ pub enum IntegerState {
 	#[default]
 	Initial,
 
-	Zero,
-
+	DecimalZero,
 	DecimalInteger,
 	DecimalFloat,
 

@@ -6,6 +6,10 @@ use core::fmt;
 
 use crate::delim;
 
+// ----------- //
+// Énumération //
+// ----------- //
+
 #[derive(Debug)]
 #[derive(Copy, Clone)]
 #[derive(PartialEq, Eq)]
@@ -74,6 +78,10 @@ delim! { - Bitwise -
 	LEFT_SHIFT = "<<";
 	RIGHT_SHIFT = ">>";
 }
+
+// -------------- //
+// Implémentation // -> Interface
+// -------------- //
 
 impl fmt::Display for Operator {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

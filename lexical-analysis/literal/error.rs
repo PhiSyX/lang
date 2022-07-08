@@ -24,7 +24,7 @@ pub enum LiteralParseError {
 #[derive(PartialEq, Eq)]
 pub enum IntegerParseError {
 	/// Il ne s'agit pas un point de code numérique.
-	IsNot { found: char },
+	IsNot { found: char }, // NOTE(phisyx): peut-être à retirer ?
 }
 
 #[derive(Debug)]
@@ -32,7 +32,7 @@ pub enum IntegerParseError {
 #[derive(PartialEq, Eq)]
 pub enum StringParseError {
 	/// Il ne s'agit pas une chaîne de caractères.
-	IsNot { found: char },
+	IsNot { found: char }, // NOTE(phisyx): peut-être à retirer ?
 
 	/// La chaîne de caractère est mal formée.
 	BadString,

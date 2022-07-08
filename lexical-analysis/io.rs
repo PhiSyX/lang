@@ -15,6 +15,7 @@ pub trait Input {
 }
 
 pub trait ParseState {
+	/// Change l'état de l'analyseur.
 	fn switch(&mut self, new_state: Self);
 }
 

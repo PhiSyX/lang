@@ -15,7 +15,11 @@ use location::{Location, LocationInterface};
 #[derive(Default)]
 #[derive(PartialEq, Eq)]
 pub struct StringOutput {
+	/// La chaîne de caractères analysée.
+	/// Les symboles de début et de fin ne sont pas inclus.
 	pub data: String,
+
+	/// L'emplacement de la chaîne de caractères dans la source.
 	pub location: Location,
 }
 
@@ -24,6 +28,7 @@ pub struct StringOutput {
 // -------------- //
 
 impl StringOutput {
+	/// Ajoute un caractère à la fin d'une chaîne de caractères.
 	pub fn append(&mut self, ch: char) {
 		self.data.push(ch);
 		self.location.increment_column();

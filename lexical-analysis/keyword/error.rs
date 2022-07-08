@@ -11,6 +11,7 @@ use core::fmt;
 #[derive(Debug)]
 #[derive(PartialEq, Eq)]
 pub enum KeywordParseError {
+	/// Le mot-clé n'existe pas dans notre lexique.
 	Unknown { found: String },
 }
 
