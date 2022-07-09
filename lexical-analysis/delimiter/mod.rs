@@ -180,84 +180,100 @@ where
 	type Error = DelimiterParseError;
 
 	fn try_from(codepoints: [CodePoint<U>; 2]) -> Result<Self, Self::Error> {
-		let [left, right] = codepoints;
-		if left == CodePoint::GREATER_THAN_SIGN
-			&& right == CodePoint::LESS_THAN_SIGN
-		{
-			return Ok(Self::Symbol(Symbol::FAT_ARROW));
-		} else if left == CodePoint::LESS_THAN_SIGN
-			&& right == CodePoint::GREATER_THAN_SIGN
-		{
-			return Ok(Self::Operator(Operator::Comparison(
-				Comparison::LESS_THAN_OR_EQUAL,
-			)));
-		}
-
 		Ok(match codepoints {
 			// Le symboles de délimitation.
+			// ".." (range)
 			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP] => {
 				Self::Symbol(Symbol::RANGE)
 			}
+			// "::" (double colon)
 			| [CodePoint::COLON, CodePoint::COLON] => {
 				Self::Symbol(Symbol::DOUBLE_COLON)
 			}
-			| [CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+			// "->" (skinny arrow)
+			| [CodePoint::HYPHEN_MINUS, CodePoint::GREATER_THAN_SIGN] => {
 				Self::Symbol(Symbol::SKINNY_ARROW)
+			}
+			// "=>" (fat arrow)
+			| [CodePoint::EQUALS_SIGN, CodePoint::GREATER_THAN_SIGN] => {
+				Self::Symbol(Symbol::FAT_ARROW)
 			}
 
 			// Les opérateurs de délimitation.
 			//   - Opérateurs d'assignations.
+			// "+="
 			| [CodePoint::PLUS_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::ADDITION))
 			}
+			// "-="
 			| [CodePoint::HYPHEN_MINUS, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::SUBTRACTION))
 			}
+			// "*="
 			| [CodePoint::ASTERISK, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::MULTIPLICATION))
 			}
+			// "/="
 			| [CodePoint::SOLIDUS, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::DIVISION))
 			}
+			// "%="
 			| [CodePoint::PERCENTAGE_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::REMAINDER))
 			}
+			// "&="
 			| [CodePoint::AMPERSAND, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::BITWISE_AND))
 			}
+			// "^="
 			| [CodePoint::CIRCUMFLEX_ACCENT, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::BITWISE_XOR))
 			}
+			// "|="
 			| [CodePoint::VERTICAL_LINE, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::BITWISE_OR))
 			}
 			//   - Opérateurs de comparaison.
+			// "=="
 			| [CodePoint::EQUALS_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Comparison(Comparison::EQUAL))
 			}
+			// "!="
 			| [CodePoint::EXCLAMATION_MARK, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Comparison(Comparison::NOT_EQUAL))
 			}
+			// "<="
+			| [CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
+				Self::Operator(Operator::Comparison(
+					Comparison::LESS_THAN_OR_EQUAL,
+				))
+			}
+			// ">="
 			| [CodePoint::GREATER_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Comparison(
 					Comparison::GREATER_THAN_OR_EQUAL,
 				))
 			}
 			//   - Opérateurs arithmétiques.
+			// "^^"
 			| [CodePoint::CIRCUMFLEX_ACCENT, CodePoint::CIRCUMFLEX_ACCENT] => {
 				Self::Operator(Operator::Arithmetic(Arithmetic::EXPONENTIATION))
 			}
 			//  - Opérateurs logiques.
+			// "&&"
 			| [CodePoint::AMPERSAND, CodePoint::AMPERSAND] => {
 				Self::Operator(Operator::Logical(Logical::AND))
 			}
+			// "||"
 			| [CodePoint::VERTICAL_LINE, CodePoint::VERTICAL_LINE] => {
 				Self::Operator(Operator::Logical(Logical::OR))
 			}
 			//   - Opérateurs binaires.
+			// "<<"
 			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN] => {
 				Self::Operator(Operator::Bitwise(Bitwise::LEFT_SHIFT))
 			}
+			// ">>"
 			| [CodePoint::GREATER_THAN_SIGN, CodePoint::GREATER_THAN_SIGN] => {
 				Self::Operator(Operator::Bitwise(Bitwise::RIGHT_SHIFT))
 			}
@@ -281,21 +297,26 @@ where
 	fn try_from(codepoints: [CodePoint<U>; 3]) -> Result<Self, Self::Error> {
 		Ok(match codepoints {
 			// Le symboles de délimitation.
+			// "..=" (range inclusive)
 			| [CodePoint::FULL_STOP, CodePoint::FULL_STOP, CodePoint::EQUALS_SIGN] => {
 				Self::Symbol(Symbol::RANGE_INCLUSIVE)
 			}
 
 			// Les opérateurs de délimitation.
 			//   - Opérateurs d'assignations.
+			// "<<="
 			| [CodePoint::LESS_THAN_SIGN, CodePoint::LESS_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::LEFT_SHIFT))
 			}
+			// ">>="
 			| [CodePoint::GREATER_THAN_SIGN, CodePoint::GREATER_THAN_SIGN, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::RIGHT_SHIFT))
 			}
+			// "&&="
 			| [CodePoint::AMPERSAND, CodePoint::AMPERSAND, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::LOGICAL_AND))
 			}
+			// "||="
 			| [CodePoint::VERTICAL_LINE, CodePoint::VERTICAL_LINE, CodePoint::EQUALS_SIGN] => {
 				Self::Operator(Operator::Assignment(Assignment::LOGICAL_OR))
 			}
