@@ -8,7 +8,8 @@ use crate::comment::{CommentOutput, CommentParseError};
 use crate::identifier::{IdentifierOutput, IdentifierParseError};
 #[cfg(feature = "literal")]
 use crate::literal::{
-	IntegerOutput, IntegerParseError, StringOutput, StringParseError,
+	BoolOutput, IntegerOutput, IntegerParseError, StringOutput,
+	StringParseError,
 };
 
 // --------- //
@@ -69,4 +70,10 @@ pub trait TokenizerAlgorithms {
 	/// MikuScript. La syntaxe de MikuScript utilise le point de code U+0027
 	/// pour désigner un SEUL caractère (EX: `let ch: char = 'C';`).
 	fn consume_string(&mut self) -> Result<StringOutput, StringParseError>;
+
+	#[cfg(feature = "literal")]
+	/// Consommer un booléen.
+	///
+	/// Un booléen est un mot réservé qui peut être soit `true` soit `false`.
+	fn consume_boolean(&mut self) -> Option<BoolOutput>;
 }

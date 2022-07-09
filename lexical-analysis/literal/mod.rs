@@ -2,6 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+mod bool;
 mod error;
 mod int;
 mod output;
@@ -10,8 +11,7 @@ mod string;
 
 use core::fmt;
 
-use self::int::Integer;
-pub use self::{error::*, output::*, state::*};
+pub use self::{bool::Bool, error::*, int::Integer, output::*, state::*};
 
 // ----------- //
 // Énumération //
@@ -22,10 +22,13 @@ pub use self::{error::*, output::*, state::*};
 #[derive(PartialEq, Eq)]
 pub enum Literal {
 	/// Nombre.
-	Integer(Integer),
+	Integer(IntegerOutput),
 
 	/// Chaîne de caractères.
 	String(StringOutput),
+
+	/// Booléen.
+	Bool(BoolOutput),
 }
 
 // -------------- //
@@ -37,6 +40,7 @@ impl fmt::Display for Literal {
 		let l = match self {
 			| Literal::Integer(int) => int.to_string(),
 			| Literal::String(_) => "string".to_owned(),
+			| Literal::Bool(_) => "bool".to_owned(),
 		};
 		write!(f, "{l}")
 	}
