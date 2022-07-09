@@ -4,6 +4,20 @@
 
 use core::fmt;
 
+use location::Location;
+
+// --------- //
+// Structure //
+// --------- //
+
+#[derive(Debug)]
+#[derive(Clone)]
+#[derive(PartialEq, Eq)]
+pub struct IntegerOutput {
+	pub integer: Integer,
+	pub location: Location,
+}
+
 // ----------- //
 // Énumération //
 // ----------- //
@@ -36,6 +50,12 @@ pub enum Integer {
 // -------------- //
 // Implémentation // -> Interface
 // -------------- //
+
+impl fmt::Display for IntegerOutput {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		self.integer.fmt(f)
+	}
+}
 
 impl fmt::Display for Integer {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
